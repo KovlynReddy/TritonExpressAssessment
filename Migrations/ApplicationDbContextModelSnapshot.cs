@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TritonExpress.Data;
 
-namespace TritonExpress.Data.Migrations
+namespace TritonExpress.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210929134015_ExpressInit")]
-    partial class ExpressInit
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,6 +102,9 @@ namespace TritonExpress.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Make")

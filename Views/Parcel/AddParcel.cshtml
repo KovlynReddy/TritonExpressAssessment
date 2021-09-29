@@ -1,12 +1,24 @@
-﻿@model ExpressDLL.Models.Parcel
+﻿@model TritonExpress.Models.ViewModel.AddParcelViewModel
+@{
+    List<SelectListItem> item = new List<SelectListItem>();
+    if (Model.Items != null)
+    {
+        var allitems = Model.Items;
+        item = allitems.Select(a => new SelectListItem{Text = a.ItemName, Value = a.ItemId}).ToList() ;
+    }
 
+}
 <h4>Parcel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="AddParcel">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-   
+
+            <div class="form-group">
+                <label asp-for="ItemId" class="control-label"></label>
+                <select asp-for="ItemId" asp-items="item" ></select>
+            </div>
             <div class="form-group">
                 <label asp-for="ParcelNo" class="control-label"></label>
                 <input asp-for="ParcelNo" class="form-control" />

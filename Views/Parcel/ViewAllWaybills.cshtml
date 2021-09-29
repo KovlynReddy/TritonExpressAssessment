@@ -1,28 +1,33 @@
-﻿@model TritonExpress.Models.ViewModel.AddWaybillViewModel
+﻿@model ExpressDLL.Models.Waybill
+
 @{
-    ViewData["Title"] = "AddWaybill";
-
-    var allitems = Model.Items;
-    var item = allitems.Select(a => new SelectListItem { Text = a.ItemName, Value = a.ItemId }).ToList();
-
-    var allparcels = Model.Parcels;
-    var parcel = allparcels.Select(a => new SelectListItem { Text = a.ItemName, Value = a.ParcelId }).ToList();
-
+    ViewData["Title"] = "ViewAllWaybills";
 }
-<h1>AddWaybill</h1>
+
+<h1>ViewAllWaybills</h1>
 
 <h4>Waybill</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddWaybill">
+        <form asp-action="ViewAllWaybills">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+            <input type="hidden" asp-for="id" />
+            <div class="form-group">
+                <label asp-for="WaybillId" class="control-label"></label>
+                <input asp-for="WaybillId" class="form-control" />
+                <span asp-validation-for="WaybillId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemId" class="control-label"></label>
+                <input asp-for="ItemId" class="form-control" />
+                <span asp-validation-for="ItemId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="ParcelId" class="control-label"></label>
-                <select asp-for="ParcelId" asp-items="parcel"  ></select>
+                <input asp-for="ParcelId" class="form-control" />
+                <span asp-validation-for="ParcelId" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
                 <input asp-for="Quantity" class="form-control" />
@@ -48,9 +53,18 @@
                 <input asp-for="OutTime" class="form-control" />
                 <span asp-validation-for="OutTime" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="ShipperSigniture" class="control-label"></label>
+                <input asp-for="ShipperSigniture" class="form-control" />
+                <span asp-validation-for="ShipperSigniture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConigeeSigniture" class="control-label"></label>
+                <input asp-for="ConigeeSigniture" class="form-control" />
+                <span asp-validation-for="ConigeeSigniture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
