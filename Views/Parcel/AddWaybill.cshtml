@@ -91,12 +91,10 @@
 
                 @foreach (var item in Model.SelectedParcels)
                 {
-                    <partial name="_AddParcel" model="item"></partial>
-                    <input asp-for="SelectedParcels" type="hidden" class="form-control" />
+                    <partial name="_AddParcel" model="item"/>
 
                 }
 
-                Model.SelectedParcels = Model.SelectedParcels;
             }
         </form>
     </div>
