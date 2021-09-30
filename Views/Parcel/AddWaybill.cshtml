@@ -1,12 +1,16 @@
 ﻿@model TritonExpress.Models.ViewModel.AddWaybillViewModel
 @{
+    List<SelectListItem> parcel = new List<SelectListItem>();
     ViewData["Title"] = "AddWaybill";
+    if (Model != null)
+    {
 
-    var allitems = Model.Items;
-    var item = allitems.Select(a => new SelectListItem { Text = a.ItemName, Value = a.ItemId }).ToList();
+        var allitems = Model.Items;
+        var item = allitems.Select(a => new SelectListItem { Text = a.ItemName, Value = a.ItemId }).ToList();
 
-    var allparcels = Model.Parcels;
-    var parcel = allparcels.Select(a => new SelectListItem { Text = a.ItemName, Value = a.ParcelId }).ToList();
+        var allparcels = Model.Parcels;
+        parcel = allparcels.Select(a => new SelectListItem { Text = a.ItemName, Value = a.ParcelId }).ToList();
+    }
 
 }
 <h1>AddWaybill</h1>

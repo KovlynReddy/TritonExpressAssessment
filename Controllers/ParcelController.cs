@@ -112,8 +112,8 @@ namespace TritonExpress.Controllers
         [HttpGet]
         public IActionResult ViewAllWaybills()
         {
-
-            return View();
+            var model = db.Waybills.ToList();
+            return View(model);
         }
     }
 }

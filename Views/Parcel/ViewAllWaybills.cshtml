@@ -1,4 +1,4 @@
-﻿@model ExpressDLL.Models.Waybill
+﻿@model IEnumerable<ExpressDLL.Models.Waybill>
 
 @{
     ViewData["Title"] = "ViewAllWaybills";
@@ -6,74 +6,84 @@
 
 <h1>ViewAllWaybills</h1>
 
-<h4>Waybill</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="ViewAllWaybills">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="id" />
-            <div class="form-group">
-                <label asp-for="WaybillId" class="control-label"></label>
-                <input asp-for="WaybillId" class="form-control" />
-                <span asp-validation-for="WaybillId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ItemId" class="control-label"></label>
-                <input asp-for="ItemId" class="form-control" />
-                <span asp-validation-for="ItemId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ParcelId" class="control-label"></label>
-                <input asp-for="ParcelId" class="form-control" />
-                <span asp-validation-for="ParcelId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Weight" class="control-label"></label>
-                <input asp-for="Weight" class="form-control" />
-                <span asp-validation-for="Weight" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InTime" class="control-label"></label>
-                <input asp-for="InTime" class="form-control" />
-                <span asp-validation-for="InTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ETA" class="control-label"></label>
-                <input asp-for="ETA" class="form-control" />
-                <span asp-validation-for="ETA" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OutTime" class="control-label"></label>
-                <input asp-for="OutTime" class="form-control" />
-                <span asp-validation-for="OutTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipperSigniture" class="control-label"></label>
-                <input asp-for="ShipperSigniture" class="form-control" />
-                <span asp-validation-for="ShipperSigniture" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConigeeSigniture" class="control-label"></label>
-                <input asp-for="ConigeeSigniture" class="form-control" />
-                <span asp-validation-for="ConigeeSigniture" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WaybillId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParcelId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Weight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ETA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OutTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipperSigniture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConigeeSigniture)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WaybillId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParcelId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ETA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OutTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipperSigniture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConigeeSigniture)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
 }
+    </tbody>
+</table>

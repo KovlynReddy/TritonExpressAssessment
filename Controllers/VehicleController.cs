@@ -1,4 +1,5 @@
-﻿using ExpressDLL.Models;
+﻿using ExpressDLL.Interfaces;
+using ExpressDLL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,28 +13,137 @@ namespace TritonExpress.Controllers
     public class VehicleController : Controller
     {
         private readonly ApplicationDbContext db;
+        private readonly IVehicleRepository repo;
 
-        public VehicleController(ApplicationDbContext db)
+        public VehicleController(ApplicationDbContext db, IVehicleRepository repo)
         {
             this.db = db;
+            this.repo = repo;
         }
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult GetVehicle() {
-
-            return Content("HELLO");
-
-        }
-
-        public IActionResult EditVehicleById()
+        #region APIS
+        [HttpGet]
+        public IActionResult GetVehicle(string id)
         {
+            var vehicles = db.Vehicles.ToList();
+
+            vehicles = vehicles.Where(m => m.VehicleId == id).ToList();
+
 
             return Content("HELLO");
 
         }
+        [HttpGet]
+        public IActionResult EditVehicleById(string id, string cat, string val)
+        {
+            var vehicle = db.Vehicles.ToList();
+
+            var vehicles = vehicle.Where(m => m.VehicleId == id).ToList().FirstOrDefault();
+
+            switch (cat)
+            {
+                case "Class":
+                    vehicles.Class = val;
+                    break;
+
+                case "Colour":
+                    vehicles.Color = val;
+                    break;
+
+                case "Make":
+                    vehicles.Make = val;
+                    break;
+
+                case "Driver":
+                    vehicles.DriverId = val;
+                    break;
+
+                case "RegNo":
+                    vehicles.RegNo = val;
+                    break;
+
+                case "NoPlate":
+                    vehicles.PlateNo = val;
+                    break;
+
+                case "Branch":
+                    vehicles.Branch = val;
+                    break;
+
+                default:
+                    vehicles.DriverId = val;
+                    break;
+            }
+
+            return Content("HELLO");
+
+        }
+        [HttpGet]
+        public IActionResult GetAllVehicles()
+        {
+            var vehicles = db.Vehicles.ToList();
+
+            return Content("Hello");
+        }
+        [HttpGet]
+        public IActionResult FilterVehicles(string id, string query)
+        {
+            var vehicles = db.Vehicles.ToList();
+
+            switch (query)
+            {
+                case "Class":
+                    vehicles = vehicles.Where(m => m.Class == id).ToList();
+                    break;
+
+                case "Colour":
+                    vehicles = vehicles.Where(m => m.Color == id).ToList();
+                    break;
+
+                case "Make":
+                    vehicles = vehicles.Where(m => m.Make == id).ToList();
+                    break;
+
+                case "Driver":
+                    vehicles = vehicles.Where(m => m.DriverId == id).ToList();
+                    break;
+
+                case "RegNo":
+                    vehicles = vehicles.Where(m => m.RegNo == id).ToList();
+                    break;
+
+                case "NoPlate":
+                    vehicles = vehicles.Where(m => m.PlateNo == id).ToList();
+                    break;
+
+                case "Branch":
+                    vehicles = vehicles.Where(m => m.PlateNo == id).ToList();
+                    break;
+
+                default:
+                    vehicles = vehicles.Where(m => m.Branch == id).ToList();
+                    break;
+            }
+
+
+            return Content("Hello");
+        }
+        [HttpGet]
+        public IActionResult SearchVehicle(string id)
+        {
+            var vehicles = db.Vehicles.ToList();
+
+            vehicles = vehicles.Where(m => m.VehicleId.Contains(id) || m.Branch.Contains(id) || m.Class.Contains(id) || m.Color.Contains(id) || m.DriverId.Contains(id) ||  m.DriverId.Contains(id) || m.Make.Contains(id) || m.PlateNo.Contains(id) || m.PlateNo.Contains(id) || m.RegNo.Contains(id) || m.VehicleId.Contains(id)).ToList();
+           // vehicles = vehicles.Where(m => m.VehicleId == id || m.Branch == id || m.Class == id || m.Color == id || m.DriverId == id ||  m.DriverId == id || m.Make == id || m.PlateNo == id || m.PlateNo == id || m.RegNo == id || m.VehicleId == id).ToList();
+
+            return Content("Hello");
+        } 
+        #endregion
+
 
         [HttpGet]
         public IActionResult UpdateVehicle(string id)
