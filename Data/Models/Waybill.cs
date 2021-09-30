@@ -11,6 +11,7 @@ namespace ExpressDLL.Models
     //    public int id { get; set; }
     //    public string WaybillId { get; set; }
     //    public string ItemId { get; set; }
+    //    public string DriverId { get; set; }
     //    public string ParcelId { get; set; }
     //    public string Quantity { get; set; }
     //    public int Weight { get; set; }

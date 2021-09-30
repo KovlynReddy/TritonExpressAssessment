@@ -103,11 +103,11 @@
 
 
 <script type="text/javascript">
-    $(document).on('click', '#Btn_AddSkillSet', function (e) {
+    $(document).on('click', '#Btn_AddSet', function (e) {
         $.ajax({
-            url: '/Employee/DisplayNewSkillSet',
+            url: '/Parcel/GetAllParcels',
             success: function (partialView) {
-                $('.SkillSetHeaderClass').append(partialView);
+                $('.').append(partialView);
             }
         });
     });
