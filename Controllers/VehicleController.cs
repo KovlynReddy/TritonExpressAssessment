@@ -103,6 +103,9 @@ namespace TritonExpress.Controllers
                 case "Colour":
                     vehicles = vehicles.Where(m => m.Color == id).ToList();
                     break;
+                case "Color":
+                    vehicles = vehicles.Where(m => m.Color == id).ToList();
+                    break;
 
                 case "Make":
                     vehicles = vehicles.Where(m => m.Make == id).ToList();

@@ -1,31 +1,52 @@
-﻿@model TritonExpress.Models.ViewModel.AddWaybillViewModel
+﻿@model TritonExpress.Models.ViewModel.AddWayBillViewModelDynamic
 @{
     List<SelectListItem> parcel = new List<SelectListItem>();
+    List<SelectListItem> vehicles = new List<SelectListItem>();
     ViewData["Title"] = "AddWaybill";
     if (Model != null)
     {
-
-        var allitems = Model.Items;
-        var item = allitems.Select(a => new SelectListItem { Text = a.ItemName, Value = a.ItemId }).ToList();
-
         var allparcels = Model.Parcels;
         parcel = allparcels.Select(a => new SelectListItem { Text = a.ItemName, Value = a.ParcelId }).ToList();
+
+        var allvehicles = Model.Vehicles;
+        vehicles = allvehicles.Select(a => new SelectListItem { Text = a.RegNo, Value = a.VehicleId }).ToList();
+
+
     }
+
 
 }
 <h1>AddWaybill</h1>
 
 <h4>Waybill</h4>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="AddWaybill">
+            
+            @if (Model.SelectedParcels != null && Model.SelectedParcels.Count > 0)
+            {
+
+            @for (int i = 0; i < Model.SelectedParcels.Count(); i++)
+            {
+                <input asp-for="SelectedParcels[i].Quantity" type="hidden" />
+                <input asp-for="SelectedParcels[i].ParcelId" type="hidden" />
+
+            }
+            }
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @*<div class="form-group">
+            <label asp-for="VehicleId" class="control-label"></label>
+            <select asp-for="VehicleId" asp-items="vehicles"></select>
+        </div>*@
 
             <div class="form-group">
                 <label asp-for="ParcelId" class="control-label"></label>
-                <select asp-for="ParcelId" asp-items="parcel"  ></select>
+                <select asp-for="ParcelId" asp-items="parcel"></select>
             </div>
+
 
             <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
@@ -37,6 +58,7 @@
                 <input asp-for="Weight" class="form-control" />
                 <span asp-validation-for="Weight" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="InTime" class="control-label"></label>
                 <input asp-for="InTime" class="form-control" />
@@ -52,18 +74,53 @@
                 <input asp-for="OutTime" class="form-control" />
                 <span asp-validation-for="OutTime" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Done" class="control-label"></label>
+                <input asp-for="Done" class="form-control" />
+                <span asp-validation-for="Done" class="text-danger"></span>
+            </div>
 
+            @*<div class="form-group">
+            <button id="Btn_AddSkillSet" value="Add Parcel" class="btn btn-primary" />
+        </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+            @if (Model.SelectedParcels != null && Model.SelectedParcels.Count > 0)
+            {
+
+                @foreach (var item in Model.SelectedParcels)
+                {
+                    <partial name="_AddParcel" model="item"></partial>
+                    <input asp-for="SelectedParcels" type="hidden" class="form-control" />
+
+                }
+
+                Model.SelectedParcels = Model.SelectedParcels;
+            }
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
+<script type="text/javascript">
+    $(document).on('click', '#Btn_AddSkillSet', function (e) {
+        $.ajax({
+            url: '/Employee/DisplayNewSkillSet',
+            success: function (partialView) {
+                $('.SkillSetHeaderClass').append(partialView);
+            }
+        });
+    });
+
+    $("#NumChoices").on('change', function () {
+
+    });
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
 }

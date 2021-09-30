@@ -11,7 +11,8 @@ namespace TritonExpress.Models.ViewModel
     {
         public List<Parcel> Parcels { get; set; }
         public List<Item> Items { get; set; }
-
+        public List<Vehicle> Vehicles { get; set; }
+        public string VehicleId { get; set; }
         public List<SelectListItem> SelectItems { get; set; }
     
 }

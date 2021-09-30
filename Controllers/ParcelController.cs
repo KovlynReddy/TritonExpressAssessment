@@ -21,6 +21,15 @@ namespace TritonExpress.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
             return View();
         }
 
@@ -55,20 +64,20 @@ namespace TritonExpress.Controllers
         [HttpGet]
         public IActionResult AddWaybill()
         {
-            AddWaybillViewModel model = new AddWaybillViewModel();
-            model.Items = db.Items.ToList();
-            List<SelectListItem> item = model.Items.ConvertAll(a =>
-            {
-                return new SelectListItem()
-                {
-                    Text = a.ItemName.ToString(),
-                    Value = a.ItemId.ToString(),
-                    Selected = false
-                };
-            });
-            model.Parcels = db.Parcels.ToList();
+            AddWayBillViewModelDynamic model = new AddWayBillViewModelDynamic();
+            //model.Items = db.Items.ToList();
+            model.Vehicles = db.Vehicles.ToList();
+            //List<SelectListItem> item = model.Items.ConvertAll(a =>
+            //{
+            //    return new SelectListItem()
+            //    {
+            //        Text = a.ItemName.ToString(),
+            //        Value = a.ItemId.ToString(),
+            //        Selected = false
+            //    };
+            //});
 
-            model.SelectItems = item;
+            model.Parcels = db.Parcels.ToList();
 
             return View(model);
 
@@ -99,12 +108,34 @@ namespace TritonExpress.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddWaybill(Waybill waybill)
+        public IActionResult AddWaybill(AddWayBillViewModelDynamic waybill)
         {
+            if (!waybill.Done)
+            {
+                var parcel = new Parcel{ ParcelId = waybill.ParcelId,Quantity = Convert.ToInt32(waybill.Quantity)};
+                waybill.SelectedParcels.Add(parcel);
+                waybill.Parcels = db.Parcels.ToList();
+                return View(waybill);
+            }
             waybill.WaybillId = Guid.NewGuid().ToString();
+            foreach (var item in waybill.SelectedParcels)
+            {
+                var newwaybill = new Waybill();
+                newwaybill.WaybillId = waybill.WaybillId;
 
-            db.Waybills.Add(waybill);
-            db.SaveChanges();
+                newwaybill.ETA = waybill.ETA ;
+                newwaybill.InTime = waybill.InTime ;
+                newwaybill.ItemId = waybill.ItemId;
+                newwaybill.OutTime = waybill.OutTime;
+                newwaybill.Quantity = waybill.SelectedParcels.Count.ToString();
+                newwaybill.ParcelId = item.ParcelId;
+                newwaybill.Weight = waybill.Weight;
+                newwaybill.ShipperSigniture = User.Identity.Name;
+                newwaybill.ConigeeSigniture = User.Identity.Name;
+
+                db.Waybills.Add(newwaybill);
+                db.SaveChanges();
+            }
 
             return View();
         }

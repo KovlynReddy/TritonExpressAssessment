@@ -19,17 +19,7 @@ namespace TritonExpress.Data
 
         }
 
-        public Vehicle AddVehicle(Vehicle vehicle)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteVehicle(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Vehicle EditVehicle(Vehicle vehicle)
+        public List<Vehicle> GetAllVehicles()
         {
             throw new NotImplementedException();
         }
@@ -39,7 +29,7 @@ namespace TritonExpress.Data
             throw new NotImplementedException();
         }
 
-        public List<Vehicle> GetAllVehicles()
+        public List<Vehicle> SearchVehicles(string query)
         {
             throw new NotImplementedException();
         }
@@ -49,7 +39,17 @@ namespace TritonExpress.Data
             throw new NotImplementedException();
         }
 
-        public List<Vehicle> SearchVehicles(string query)
+        public Vehicle AddVehicle(Vehicle vehicle)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Vehicle EditVehicle(Vehicle vehicle)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteVehicle(string id)
         {
             throw new NotImplementedException();
         }
