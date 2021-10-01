@@ -27,7 +27,7 @@ namespace TritonExpress.Controllers
 
         #region APIS
         [HttpGet]
-        public IActionResult GetVehicle(string id)
+        public async Task<IActionResult> GetVehicle(string id)
         {
             var vehicles = db.Vehicles.ToList();
 
@@ -38,7 +38,7 @@ namespace TritonExpress.Controllers
 
         }
         [HttpGet]
-        public IActionResult EditVehicleById(string id, string cat, string val)
+        public async Task<IActionResult> EditVehicleById(string id, string cat, string val)
         {
             var vehicle = db.Vehicles.ToList();
 
@@ -83,14 +83,14 @@ namespace TritonExpress.Controllers
 
         }
         [HttpGet]
-        public IActionResult GetAllVehicles()
+        public async Task<IActionResult> GetAllVehicles()
         {
             var vehicles = db.Vehicles.ToList();
 
             return Content("Hello");
         }
         [HttpGet]
-        public IActionResult FilterVehicles(string id, string query)
+        public async Task<IActionResult> FilterVehicles(string id, string query)
         {
             var vehicles = db.Vehicles.ToList();
 
@@ -136,7 +136,7 @@ namespace TritonExpress.Controllers
             return Content("Hello");
         }
         [HttpGet]
-        public IActionResult SearchVehicle(string id)
+        public async Task<IActionResult> SearchVehicle(string id)
         {
             var vehicles = db.Vehicles.ToList();
 
@@ -210,6 +210,7 @@ namespace TritonExpress.Controllers
 
             var vehicles = db.Vehicles.ToList();
 
+            // Mocked data  
             List<Vehicle> mockdb = new List<Vehicle>();
 
             mockdb.Add(new Vehicle { id = 0 , VehicleId = Guid.NewGuid().ToString() , Branch = "Durban", Class =  "16Wheeler" , Color = "Blue" , Make = "MAN", MaxTonnage = 150, PlateNo = "ND096384", RegNo = "12H7DBI2HBB2EE2", DriverId ="David002" });
